@@ -58,6 +58,14 @@ jobs:
               dep ensure
           fi
 
+      - name: Build
+        run: go build -v .
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+
       - name: Test
         run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
@@ -65,16 +73,3 @@ jobs:
         uses: codecov/codecov-action@v1.0.6
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-
-      - name: Build
-        run: go build -v .
-
-  golangci:
-      name: lint
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: golangci-lint
-          uses: golangci/golangci-lint-action@v2
-          with:
-            version: latest
