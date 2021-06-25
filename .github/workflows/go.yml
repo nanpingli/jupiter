@@ -1,6 +1,9 @@
 name: Go
 
 on:
+  push:
+    branches:
+      - feature/*
   pull_request:
     branches: [ master ]
 
